@@ -1,0 +1,6 @@
+server:
+  port: 9002
+
+  Servelet:
+    multipart:
+      max-file-size: 1MB
