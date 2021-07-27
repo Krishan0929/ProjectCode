@@ -1,15 +1,27 @@
 package com.email.model;
 
+import java.io.File;
+
 public class EmailRequest
 {
     private String to;
     private String Subject;
     private String message;
+    private File images;
 
-    public EmailRequest(String to, String subject, String message) {
+    public File getImages() {
+        return images;
+    }
+
+    public void setImages(File images) {
+        this.images = images;
+    }
+
+    public EmailRequest(String to, String subject, String message , File images) {
         this.to= to;
         Subject = subject;
         this.message = message;
+        this.images=images;
     }
 
     public EmailRequest()
@@ -47,6 +59,7 @@ public class EmailRequest
                 "to='" + to + '\'' +
                 ", Subject='" + Subject + '\'' +
                 ", message='" + message + '\'' +
+                ", images='" + images + '\'' +
                 '}';
     }
 }
