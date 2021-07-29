@@ -26,7 +26,7 @@ import java.util.Properties;
 public class EmailService
 {
     Logger logger= (Logger) LoggerFactory.getLogger(EmailService.class);
-    @Value("${userName}")
+    @Value("${Spring.mail.userName}")
     private String userName;
     @Value("${password}")
     private String password;
@@ -40,7 +40,7 @@ public class EmailService
         String from=userName;
         System.out.println(userName);
         System.out.println(password);
-       // String host="smtp.gmail.com";
+
         String UPLOADED_FOLDER = "G://temp//";
         Properties properties=System.getProperties();
         System.out.println("PROPERTIES"+properties);
@@ -72,7 +72,6 @@ public class EmailService
 
 
 
-           // long bytes= (long) Files.size(Paths.get(path));
             System.out.println(bytes);
             MimeMultipart mimeMultipart=new MimeMultipart();
             MimeBodyPart textMime=new MimeBodyPart();
@@ -106,8 +105,8 @@ public class EmailService
     public boolean sendEmail(String subject,String message,String to)throws Exception
     {
         boolean f=false;
-        String from="Raghvanmishra9519@gmail.com";
-      String host="smtp.gmail.com";
+        String from=userName;
+
 
         Properties properties=System.getProperties();
         System.out.println("PROPERTIES"+properties);
@@ -117,7 +116,7 @@ public class EmailService
         Session session=Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("Raghvanmishra9519@gmail.com","Raghvan@95");
+                return new PasswordAuthentication(userName,password);
             }
         });
 
