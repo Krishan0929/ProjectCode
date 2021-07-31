@@ -6,7 +6,7 @@ public class ErrorObject
 
     private String message;
 
-    private long timeStamp;
+    private Number timeStamp;
 
     public Integer getStatusCode() {
         return statusCode;
@@ -24,11 +24,11 @@ public class ErrorObject
         this.message = message;
     }
 
-    public long getTimeStamp() {
+    public Number getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(long timeStamp) {
+    public void setTimeStamp(Number timeStamp) {
         this.timeStamp = timeStamp;
     }
 }

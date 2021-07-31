@@ -2,7 +2,6 @@ package com.email.service;
 
 
 
-import org.apache.tomcat.util.http.fileupload.impl.IOFileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,12 +36,11 @@ public class EmailService
     {
         boolean f=false;
         String from=userName;
-        System.out.println(userName);
-        System.out.println(password);
 
-        String UPLOADED_FOLDER = "G://temp//";
+
+
         Properties properties=System.getProperties();
-        System.out.println("PROPERTIES"+properties);
+
 
         properties.put("mail.smtp.host",host);
         properties.put("mail.smtp.port",port);
@@ -67,7 +64,7 @@ public class EmailService
 
 
             byte[] bytes = images.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + images.getOriginalFilename());
+            Path path = Paths.get( images.getOriginalFilename());
             Files.write(path, bytes);
 
 
@@ -88,7 +85,7 @@ public class EmailService
 
 
 
-
+                    logger.info("Information");
                 logger.trace("Error happened");
 
             mimeMessage.setContent(mimeMultipart);
@@ -109,7 +106,7 @@ public class EmailService
 
 
         Properties properties=System.getProperties();
-        System.out.println("PROPERTIES"+properties);
+
 
 
 
@@ -131,7 +128,6 @@ public class EmailService
             Transport.send(mimeMessage);
 
 
-            System.out.println("Sent successfully................");
             f=true;
 
         logger.trace("Error happened");
