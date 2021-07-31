@@ -36,65 +36,39 @@ public class EmailService
     {
         boolean f=false;
         String from=userName;
-
-
-
         Properties properties=System.getProperties();
-
-
         properties.put("mail.smtp.host",host);
         properties.put("mail.smtp.port",port);
         properties.put("mail.smtp.ssl.enable","true");
         properties.put("mail.smtp.auth","true");
-
         Session session=Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(userName,password);
             }
         });
-
         session.setDebug(true);
         MimeMessage mimeMessage=new MimeMessage(session);
-
             mimeMessage.setFrom(from);
             mimeMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
             mimeMessage.setSubject(subject);
-
-
-
             byte[] bytes = images.getBytes();
             Path path = Paths.get( images.getOriginalFilename());
-            Files.write(path, bytes);
-
-
-
-            System.out.println(bytes);
             MimeMultipart mimeMultipart=new MimeMultipart();
             MimeBodyPart textMime=new MimeBodyPart();
             MimeBodyPart fileMime=new MimeBodyPart();
-
-                textMime.setText(message);
-                File file=new File(path.toUri());
-
-                
-                fileMime.attachFile(file);
-                mimeMultipart.addBodyPart(textMime);
-                mimeMultipart.addBodyPart(fileMime);
-
-
-
-
-                    logger.info("Information");
-                logger.trace("Error happened");
-
+            textMime.setText(message);
+            File file=new File(path.toUri());
+            fileMime.attachFile(file);
+            mimeMultipart.addBodyPart(textMime);
+            mimeMultipart.addBodyPart(fileMime);
+            logger.info("Information");
+            logger.trace("Error happened");
             mimeMessage.setContent(mimeMultipart);
-
             Transport.send(mimeMessage);
-            System.out.println("Sent successfully................");
             f=true;
-             logger.error("Fatal error");
-             logger.trace("Every thing trace");
+            logger.error("Fatal error");
+            logger.trace("Every thing trace");
 
         return f;
     }
@@ -103,34 +77,22 @@ public class EmailService
     {
         boolean f=false;
         String from=userName;
-
-
         Properties properties=System.getProperties();
-
-
-
-
         Session session=Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(userName,password);
             }
         });
-
         session.setDebug(true);
         MimeMessage mimeMessage=new MimeMessage(session);
-
             mimeMessage.setFrom(from);
             mimeMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
             mimeMessage.setSubject(subject);
-
             mimeMessage.setText(message);
             Transport.send(mimeMessage);
-
-
             f=true;
-
-        logger.trace("Error happened");
+            logger.trace("Error happened");
         return f;
     }
 }
